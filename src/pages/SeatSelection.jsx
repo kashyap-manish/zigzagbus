@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBooking } from "../context/BookingContext";
 
@@ -5,10 +6,11 @@ export default function SeatSelection() {
   const { selectedBus, selectedSeats, setSelectedSeats, search } = useBooking();
   const navigate = useNavigate();
 
-  if (!selectedBus) {
-    navigate("/search");
-    return null;
-  }
+  useEffect(() => {
+    if (!selectedBus) navigate("/search");
+  }, [selectedBus, navigate]);
+
+  if (!selectedBus) return null;
 
   const totalSeats = selectedBus.totalSeats;
   const booked = selectedBus.bookedSeats;

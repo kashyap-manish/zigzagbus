@@ -47,12 +47,11 @@ export function BookingProvider({ children }) {
 
   async function confirmBooking(passengerDetails) {
     const payload = {
+      busData: selectedBus,
       busId: selectedBus.id,
       seats: selectedSeats,
       passengers: passengerDetails,
-      from: search.from,
-      to: search.to,
-      date: search.date,
+      search: { from: search.from, to: search.to, date: search.date },
       total: selectedBus.price * selectedSeats.length,
     };
     const booking = await createBooking(payload);

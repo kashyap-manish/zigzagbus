@@ -9,6 +9,11 @@ import Checkout from "./pages/Checkout";
 import MyBookings from "./pages/MyBookings";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Offers from "./pages/Offers";
+import LiveTracking from "./pages/LiveTracking";
+import BackToTop from "./components/BackToTop";
 
 export default function App() {
   return (
@@ -25,8 +30,13 @@ export default function App() {
               <Route path="/bookings" element={<MyBookings />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/offers" element={<Offers />} />
+              <Route path="/track" element={<LiveTracking />} />
             </Routes>
           </main>
+          <BackToTop />
           <Footer />
         </div>
       </BookingProvider>

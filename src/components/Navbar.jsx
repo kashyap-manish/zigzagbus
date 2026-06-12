@@ -11,7 +11,10 @@ export default function Navbar() {
   const links = [
     { label: "Home", to: "/" },
     { label: "Search Buses", to: "/search" },
+    { label: "Offers", to: "/offers" },
     { label: "My Bookings", to: "/bookings" },
+    { label: "About", to: "/about" },
+    { label: "Contact", to: "/contact" },
   ];
 
   const isActive = (to) => location.pathname === to;

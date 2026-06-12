@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBooking } from "../context/BookingContext";
 
@@ -12,10 +12,11 @@ export default function Checkout() {
   const [payError, setPayError] = useState("");
   const [paying, setPaying] = useState(false);
 
-  if (!selectedBus || selectedSeats.length === 0) {
-    navigate("/search");
-    return null;
-  }
+  useEffect(() => {
+    if (!selectedBus || selectedSeats.length === 0) navigate("/search");
+  }, [selectedBus, selectedSeats, navigate]);
+
+  if (!selectedBus || selectedSeats.length === 0) return null;
 
   const total = selectedBus.price * selectedSeats.length;
 
@@ -51,9 +52,9 @@ export default function Checkout() {
 
           <div className="bg-gray-50 rounded-xl p-4 text-left text-sm space-y-2 mb-6">
             <p><span className="text-gray-500">Booking ID:</span> <span className="font-bold">#{booking.id}</span></p>
-            <p><span className="text-gray-500">Operator:</span> <span className="font-bold">{booking.bus.operator}</span></p>
-            <p><span className="text-gray-500">Route:</span> <span className="font-bold">{booking.bus.from} → {booking.bus.to}</span></p>
-            <p><span className="text-gray-500">Date:</span> <span className="font-bold">{booking.search.date}</span></p>
+            <p><span className="text-gray-500">Operator:</span> <span className="font-bold">{booking.busData?.operator}</span></p>
+            <p><span className="text-gray-500">Route:</span> <span className="font-bold">{booking.busData?.from} → {booking.busData?.to}</span></p>
+            <p><span className="text-gray-500">Date:</span> <span className="font-bold">{booking.search?.date}</span></p>
             <p><span className="text-gray-500">Seats:</span> <span className="font-bold">{booking.seats.join(", ")}</span></p>
             <p><span className="text-gray-500">Passenger:</span> <span className="font-bold">{booking.passengers.name}</span></p>
             <p><span className="text-gray-500">Total Paid:</span> <span className="font-extrabold text-[#2887ff] text-base">₹{booking.total}</span></p>
@@ -62,6 +63,9 @@ export default function Checkout() {
           <div className="flex gap-3">
             <button onClick={() => navigate("/bookings")} className="flex-1 bg-[#2887ff] text-white py-2 rounded-full font-bold hover:bg-[#2476da] transition text-sm">
               View My Bookings
+            </button>
+            <button onClick={() => navigate(`/track?id=${booking.id}`)} className="flex-1 bg-green-500 text-white py-2 rounded-full font-bold hover:bg-green-600 transition text-sm">
+              🗺️ Track Bus
             </button>
             <button onClick={() => navigate("/")} className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-full font-semibold hover:border-[#2887ff] transition text-sm">
               Go Home

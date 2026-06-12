@@ -19,7 +19,7 @@ export default function SearchForm({ compact = false }) {
     navigate("/search");
   }
 
-  const inputClass = "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#2887ff]";
+  const inputClass = "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-800 bg-white focus:outline-none focus:border-[#2887ff]";
 
   return (
     <form onSubmit={handleSubmit} className={`bg-white rounded-2xl shadow-xl p-4 sm:p-6 ${compact ? "" : "max-w-4xl mx-auto"}`}>
