@@ -40,33 +40,44 @@ export default function SearchResults() {
   }, [buses, filter, sortBy]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-[#2887ff] py-6 px-2 sm:px-4">
+    <div className="min-h-screen bg-slate-50">
+      {/* Header */}
+      <div className="bg-midnight pt-24 pb-10 px-4">
         <div className="max-w-4xl mx-auto">
           <SearchForm compact />
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-2 sm:px-4 py-8">
+      <div className="max-w-5xl mx-auto px-4 py-10">
         {search.from && search.to && (
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-800">
-              {search.from} → {search.to}
-            </h1>
-            <p className="text-gray-500 text-sm">
-              {search.date || "Any date"} · {search.passengers} passenger(s) · {results.length} buses found
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="font-syne text-3xl font-extrabold text-midnight">
+                {search.from}
+              </h1>
+              <i className="ti ti-arrow-right text-primary text-2xl"></i>
+              <h1 className="font-syne text-3xl font-extrabold text-midnight">
+                {search.to}
+              </h1>
+            </div>
+            <p className="text-slate-400 text-sm font-semibold">
+              {search.date || "Any date"} &middot; {search.passengers} passenger(s) &middot;{" "}
+              <span className="text-primary font-bold">{results.length} buses found</span>
             </p>
           </div>
         )}
 
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        {/* Filters */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm">
           <div className="flex flex-wrap gap-2">
             {BUS_TYPES.map((t) => (
               <button
                 key={t}
                 onClick={() => setFilter(t)}
-                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition ${
-                  filter === t ? "bg-[#2887ff] text-white" : "bg-white text-gray-600 border hover:border-[#2887ff]"
+                className={`px-5 py-2 rounded-xl text-xs font-extrabold uppercase tracking-widest transition-all ${
+                  filter === t
+                    ? "bg-primary text-white shadow-lg shadow-primary/20"
+                    : "bg-slate-50 text-slate-500 border border-slate-100 hover:border-primary/30"
                 }`}
               >
                 {t}
@@ -76,35 +87,44 @@ export default function SearchResults() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:outline-none focus:border-[#2887ff]"
+            className="text-xs font-bold border border-slate-100 rounded-xl px-4 py-2.5 bg-slate-50 focus:outline-none focus:border-primary/30 text-slate-600 uppercase tracking-wider"
           >
-            <option value="price">Sort: Price (Low to High)</option>
-            <option value="rating">Sort: Rating (High to Low)</option>
-            <option value="departure">Sort: Departure Time</option>
+            <option value="price">Price: Low to High</option>
+            <option value="rating">Rating: High to Low</option>
+            <option value="departure">Departure Time</option>
           </select>
         </div>
 
-        {loading && <div className="text-center py-20 text-gray-500">Searching buses...</div>}
+        {/* States */}
+        {loading && (
+          <div className="text-center py-32">
+            <div className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-6"></div>
+            <p className="text-slate-400 font-semibold">Searching buses...</p>
+          </div>
+        )}
+
         {error && (
-          <div className="text-center py-16">
-            <div className="text-5xl mb-4">🔒</div>
-            <h3 className="text-lg font-bold text-gray-700 mb-2">{error}</h3>
-            {error.toLowerCase().includes("token") || error.toLowerCase().includes("unauthorized") ? (
-              <Link to="/login" className="mt-3 inline-block bg-[#2887ff] text-white px-6 py-2 rounded-full font-bold hover:bg-[#2476da] transition">
+          <div className="text-center py-24 bg-white rounded-3xl border border-slate-100">
+            <i className="ti ti-lock text-5xl text-slate-300 mb-4 block"></i>
+            <h3 className="text-xl font-bold text-midnight mb-2">{error}</h3>
+            {(error.toLowerCase().includes("token") || error.toLowerCase().includes("unauthorized")) && (
+              <Link to="/login" className="mt-4 inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-2xl font-bold hover:bg-primary-dark transition shadow-lg shadow-primary/20">
                 Login to Search
               </Link>
-            ) : null}
+            )}
           </div>
         )}
+
         {!loading && !error && results.length === 0 && (
-          <div className="text-center py-20">
-            <div className="text-6xl mb-4">🚌</div>
-            <h3 className="text-xl font-bold text-gray-700 mb-2">No buses found</h3>
-            <p className="text-gray-500">Try different cities or remove filters.</p>
+          <div className="text-center py-24 bg-white rounded-3xl border border-slate-100">
+            <i className="ti ti-bus-off text-6xl text-slate-200 mb-4 block"></i>
+            <h3 className="font-syne text-2xl font-bold text-midnight mb-2">No buses found</h3>
+            <p className="text-slate-400 font-medium">Try different cities or remove filters.</p>
           </div>
         )}
+
         {!loading && !error && results.length > 0 && (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             {results.map((bus) => <BusCard key={bus.id} bus={bus} />)}
           </div>
         )}

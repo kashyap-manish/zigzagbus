@@ -2,47 +2,44 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300 pt-10 sm:pt-12 pb-6 mt-16">
-      <div className="max-w-6xl mx-auto px-2 sm:px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="col-span-2 md:col-span-1">
-          <h2 className="text-xl font-extrabold text-white mb-3">🚌 ZigZagBus</h2>
-          <p className="text-sm text-gray-400">Your trusted bus travel partner. Book tickets, choose seats, and travel comfortably across India.</p>
-          <div className="flex gap-3 mt-4">
-            {["📘", "📸", "▶️"].map((icon, i) => (
-              <a key={i} href="#!" className="bg-[#2887ff] w-9 h-9 rounded-full flex items-center justify-center hover:bg-[#2476da] transition text-sm">{icon}</a>
-            ))}
+    <footer className="py-20 border-t border-slate-100 bg-white">
+      <div className="container mx-auto px-4 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-12">
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center text-white text-2xl shadow-lg shadow-primary/20">
+            <i className="ti ti-bus"></i>
           </div>
+          <span className="font-syne text-2xl font-extrabold text-midnight tracking-tight">ZigZagBus</span>
         </div>
-
-        <div>
-          <h4 className="text-white font-semibold mb-4 text-sm sm:text-base">Quick Links</h4>
-          <ul className="space-y-2 text-sm">
-            {[["Home", "/"], ["Search Buses", "/search"], ["Offers", "/offers"], ["My Bookings", "/bookings"], ["About Us", "/about"], ["Contact", "/contact"]].map(([label, to]) => (
-              <li key={to}><Link to={to} className="hover:text-[#2887ff] transition">{label}</Link></li>
-            ))}
-          </ul>
+        
+        <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-slate-400 font-semibold text-sm">
+          <Link to="/about" className="hover:text-primary transition-colors duration-200">About Us</Link>
+          <Link to="/contact" className="hover:text-primary transition-colors duration-200">Contact</Link>
+          <Link to="/privacy" className="hover:text-primary transition-colors duration-200">Privacy Policy</Link>
+          <Link to="/terms" className="hover:text-primary transition-colors duration-200">Terms of Service</Link>
+          <Link to="/faq" className="hover:text-primary transition-colors duration-200">FAQ</Link>
         </div>
-
-        <div>
-          <h4 className="text-white font-semibold mb-4 text-sm sm:text-base">Contact</h4>
-          <ul className="space-y-2 text-sm">
-            <li>📞 +91 12345 67890</li>
-            <li>✉️ info@zigzagbus.in</li>
-            <li>📍 Agra, India</li>
-          </ul>
-        </div>
-
-        <div className="col-span-2 md:col-span-1">
-          <h4 className="text-white font-semibold mb-4 text-sm sm:text-base">Newsletter</h4>
-          <form className="flex flex-col gap-2">
-            <input type="email" placeholder="Your email" className="px-3 py-2 rounded bg-gray-800 border border-gray-600 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2887ff]" />
-            <button className="bg-[#2887ff] text-white py-2 rounded font-semibold hover:bg-[#2476da] transition text-sm">Subscribe</button>
-          </form>
+        
+        <div className="flex gap-4">
+          {[
+            { icon: "ti-brand-twitter", href: "#!" },
+            { icon: "ti-brand-instagram", href: "#!" },
+            { icon: "ti-brand-facebook", href: "#!" }
+          ].map((social, idx) => (
+            <a 
+              key={idx}
+              href={social.href} 
+              className="w-11 h-11 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 transform hover:-translate-y-1"
+            >
+              <i className={`${social.icon} text-xl`}></i>
+            </a>
+          ))}
         </div>
       </div>
-
-      <div className="text-center text-xs sm:text-sm text-gray-500 mt-10 border-t border-gray-700 pt-4 px-2 sm:px-4">
-        © 2025 ZigZagBus. All rights reserved.
+      
+      <div className="container mx-auto px-4 sm:px-8 mt-16 text-center pt-10 border-t border-slate-50">
+        <p className="text-slate-300 text-xs font-bold uppercase tracking-[0.2em]">
+          &copy; {new Date().getFullYear()} ZigZagBus. Premium Transit Solutions.
+        </p>
       </div>
     </footer>
   );

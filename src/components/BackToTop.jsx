@@ -14,10 +14,10 @@ export default function BackToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed bottom-6 right-6 z-50 w-11 h-11 bg-[#2887ff] text-white rounded-full shadow-lg flex items-center justify-center hover:bg-[#2476da] transition text-lg"
+      className="fixed bottom-8 right-8 z-50 w-12 h-12 bg-midnight hover:bg-primary text-white rounded-2xl shadow-xl shadow-black/20 flex items-center justify-center transition-all duration-300 hover:shadow-primary/30 hover:-translate-y-1 active:scale-90"
       aria-label="Back to top"
     >
-      ↑
+      <i className="ti ti-arrow-up text-lg"></i>
     </button>
   );
 }

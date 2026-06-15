@@ -7,11 +7,13 @@ export default function MyBookings() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
-        <div className="text-6xl mb-4">🔒</div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Login Required</h2>
-        <p className="text-gray-500 mb-6">Please login to view your bookings.</p>
-        <Link to="/login" className="bg-[#2887ff] text-white px-6 py-3 rounded-full font-bold hover:bg-[#2476da] transition">
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center text-center px-4">
+        <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+          <i className="ti ti-lock text-4xl text-primary"></i>
+        </div>
+        <h2 className="font-syne text-3xl font-extrabold text-midnight mb-2">Login Required</h2>
+        <p className="text-slate-400 font-medium mb-8">Please login to view your bookings.</p>
+        <Link to="/login" className="bg-primary text-white px-10 py-4 rounded-2xl font-bold hover:bg-primary-dark transition shadow-lg shadow-primary/20 uppercase tracking-widest text-sm">
           Login
         </Link>
       </div>
@@ -19,55 +21,64 @@ export default function MyBookings() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-2 sm:px-4">
+    <div className="min-h-screen bg-slate-50 pt-24 pb-12 px-4">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">My Bookings</h1>
+        <div className="mb-10">
+          <h1 className="font-syne text-4xl font-extrabold text-midnight mb-1">My Bookings</h1>
+          <p className="text-slate-400 font-medium">Hi <span className="text-primary font-bold">{user.name}</span>, here are your trips.</p>
+        </div>
 
         {bookings.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="text-6xl mb-4">🎟️</div>
-            <h3 className="text-xl font-bold text-gray-700 mb-2">No bookings yet</h3>
-            <p className="text-gray-500 mb-6">Start by searching for a bus.</p>
-            <Link to="/search" className="bg-[#2887ff] text-white px-6 py-3 rounded-full font-bold hover:bg-[#2476da] transition">
-              Search Buses
+          <div className="text-center py-24 bg-white rounded-3xl border border-slate-100 shadow-lg">
+            <i className="ti ti-ticket text-6xl text-slate-200 block mb-4"></i>
+            <h3 className="font-syne text-2xl font-bold text-midnight mb-2">No bookings yet</h3>
+            <p className="text-slate-400 mb-8 font-medium">Start by searching for a bus.</p>
+            <Link to="/search" className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-2xl font-bold hover:bg-primary-dark transition shadow-lg shadow-primary/20 uppercase tracking-widest text-sm">
+              <i className="ti ti-search"></i> Search Buses
             </Link>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-5">
             {bookings.map((b) => (
-              <div key={b.id} className="bg-white rounded-2xl shadow-md p-5">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="font-bold text-gray-800 text-lg">{b.busData?.operator}</h3>
-                    <p className="text-gray-500 text-sm">{b.busData?.type}</p>
+              <div key={b.id} className="bg-white rounded-3xl border border-slate-100 shadow-lg hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden">
+                <div className="p-6 sm:p-8">
+                  <div className="flex justify-between items-start mb-6">
+                    <div>
+                      <h3 className="font-syne text-xl font-bold text-midnight mb-1">{b.busData?.operator}</h3>
+                      <span className="text-[10px] bg-primary/10 text-primary font-extrabold px-3 py-1 rounded-full uppercase tracking-widest">{b.busData?.type}</span>
+                    </div>
+                    <span className="flex items-center gap-1.5 bg-green-50 text-green-600 text-xs font-extrabold px-4 py-2 rounded-full border border-green-100">
+                      <i className="ti ti-circle-check-filled"></i> Confirmed
+                    </span>
                   </div>
-                  <span className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">Confirmed</span>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                    {[
+                      ["Route", `${b.busData?.from} → ${b.busData?.to}`, "ti-route"],
+                      ["Date", b.search?.date, "ti-calendar"],
+                      ["Seats", b.seats.join(", "), "ti-armchair"],
+                      ["Amount", `₹${b.total}`, "ti-wallet"],
+                    ].map(([label, val, icon]) => (
+                      <div key={label} className="bg-slate-50 rounded-2xl p-4">
+                        <div className="flex items-center gap-1.5 text-slate-400 mb-1.5">
+                          <i className={`ti ${icon} text-xs`}></i>
+                          <p className="text-[10px] font-extrabold uppercase tracking-widest">{label}</p>
+                        </div>
+                        <p className={`font-bold text-sm ${label === "Amount" ? "text-primary font-syne text-lg" : "text-midnight"}`}>{val}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-                  <div>
-                    <p className="text-gray-400 text-xs">ROUTE</p>
-                    <p className="font-semibold">{b.busData?.from} → {b.busData?.to}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-xs">DATE</p>
-                    <p className="font-semibold">{b.search?.date}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-xs">SEATS</p>
-                    <p className="font-semibold">{b.seats.join(", ")}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-xs">AMOUNT</p>
-                    <p className="font-extrabold text-[#2887ff]">₹{b.total}</p>
-                  </div>
-                </div>
-                <div className="border-t mt-3 pt-3 flex items-center justify-between">
-                  <span className="text-xs text-gray-400">Booking ID: #{b.id} · Passenger: {b.passengers.name}</span>
+
+                <div className="px-6 sm:px-8 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50">
+                  <span className="text-xs text-slate-400 font-semibold">
+                    ID: #{b.id} &nbsp;·&nbsp; Passenger: {b.passengers.name}
+                  </span>
                   <button
                     onClick={() => navigate(`/track?id=${b.id}`)}
-                    className="text-xs bg-[#2887ff] text-white px-3 py-1.5 rounded-full font-bold hover:bg-[#2476da] transition"
+                    className="flex items-center gap-2 text-xs bg-midnight text-white px-5 py-2.5 rounded-xl font-bold hover:bg-primary transition-all shadow-md"
                   >
-                    🗺️ Track Bus
+                    <i className="ti ti-map-pin"></i> Track Bus
                   </button>
                 </div>
               </div>
