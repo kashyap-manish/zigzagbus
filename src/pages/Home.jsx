@@ -2,67 +2,151 @@ import { Link } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import { destinations } from "../data/mockData";
 
-const features = [
-  { icon: "ti-armchair", title: "First-Class Comfort", desc: "Ergonomic seating with adjustable recliners, ample legroom, and personal climate control for every passenger.", large: true },
-  { icon: "ti-ticket", title: "E-Ticket System", desc: "No more paper. Your smartphone is your ticket. Fast boarding via QR scanning at every terminal." },
-  { icon: "ti-shield-check", title: "Safety First", desc: "Advanced safety systems, real-time GPS tracking, and highly trained captains for a secure journey." },
-  { icon: "ti-wallet", title: "Best Value Pricing", desc: "Premium service shouldn't mean premium prices. We offer competitive rates and frequent loyalty rewards.", dark: true, large: true },
+const stats = [
+  { value: "500+", label: "Active Routes", icon: "ti-route" },
+  { value: "1.2M", label: "Happy Travelers", icon: "ti-mood-happy" },
+  { value: "98%", label: "On-Time Rate", icon: "ti-clock-check" },
+  { value: "4.9★", label: "User Rating", icon: "ti-star-filled" },
 ];
 
-const stats = [
-  { value: "500+", label: "Active Routes" },
-  { value: "1.2M", label: "Happy Travelers" },
-  { value: "98%", label: "On-Time Rate" },
-  { value: "4.9/5", label: "User Rating" },
+const features = [
+  { icon: "ti-armchair", title: "First-Class Comfort", desc: "Ergonomic recliner seats, ample legroom, and personal climate control on every ride.", color: "from-primary to-blue-700" },
+  { icon: "ti-wifi", title: "Free WiFi & Charging", desc: "Stay connected with high-speed WiFi and USB charging points at every seat.", color: "from-violet-500 to-purple-700" },
+  { icon: "ti-shield-check", title: "Safe & Verified", desc: "All operators are background-checked, GPS-tracked, and safety-certified.", color: "from-emerald-500 to-teal-600" },
+  { icon: "ti-map-pin", title: "Live Tracking", desc: "Track your bus in real-time on a live map. Know exactly where your ride is.", color: "from-amber-400 to-orange-500" },
+  { icon: "ti-ticket", title: "Instant E-Ticket", desc: "Book in under 2 minutes. Your e-ticket arrives instantly on SMS and email.", color: "from-rose-400 to-pink-600" },
+  { icon: "ti-wallet", title: "Best Price Guarantee", desc: "We match prices across operators so you always get the best deal possible.", color: "from-cyan-400 to-sky-600" },
+];
+
+const steps = [
+  { step: "01", icon: "ti-search", title: "Search Your Route", desc: "Enter your origin, destination, travel date, and number of passengers." },
+  { step: "02", icon: "ti-armchair", title: "Choose Your Seat", desc: "Pick your preferred seat from an interactive seat map with live availability." },
+  { step: "03", icon: "ti-credit-card", title: "Pay Securely", desc: "Pay via UPI, card, or net banking through our encrypted payment gateway." },
+  { step: "04", icon: "ti-circle-check", title: "Board & Travel", desc: "Show your e-ticket QR code at the boarding point and enjoy the ride." },
+];
+
+const testimonials = [
+  { name: "Priya Sharma", location: "Delhi → Agra", avatar: "https://i.pravatar.cc/100?u=31", rating: 5, text: "Booked for my family trip in minutes. The AC sleeper was incredibly comfortable and arrived right on time. Will always use ZigZagBus!" },
+  { name: "Rahul Verma", location: "Mumbai → Pune", avatar: "https://i.pravatar.cc/100?u=32", rating: 5, text: "Tracked my bus live the entire route. The WiFi worked perfectly. Best bus booking experience I've had in India." },
+  { name: "Sneha Joshi", location: "Bangalore → Chennai", avatar: "https://i.pravatar.cc/100?u=33", rating: 5, text: "Used the student discount code and saved ₹200. Seats were clean, staff was polite. Highly recommend ZigZagBus." },
+];
+
+const popularRoutes = [
+  { from: "Delhi", to: "Agra", duration: "4h", price: 200, tag: "Most Popular" },
+  { from: "Mumbai", to: "Pune", duration: "3.5h", price: 280, tag: "Daily Buses" },
+  { from: "Bangalore", to: "Chennai", duration: "8h", price: 820, tag: "Night Sleeper" },
+  { from: "Delhi", to: "Dehradun", duration: "8h", price: 750, tag: "Weekend Special" },
+  { from: "Jaipur", to: "Delhi", duration: "6.5h", price: 600, tag: "Fast Route" },
+  { from: "Varanasi", to: "Lucknow", duration: "4h", price: 380, tag: "Trending" },
 ];
 
 export default function Home() {
   return (
-    <div className="bg-white selection:bg-primary/30 selection:text-midnight">
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] bg-midnight overflow-hidden flex items-center pt-24 pb-12 sm:py-0">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/4 animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-primary/5 blur-[100px] rounded-full translate-y-1/4 -translate-x-1/4"></div>
+    <div className="bg-white">
 
-        <div className="container mx-auto px-4 sm:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <div className="space-y-10 py-12 lg:py-24">
-            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs font-bold uppercase tracking-widest">
-              <span className="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
-              Premium Long Distance Travel
-            </div>
-            
-            <h1 className="font-syne text-5xl sm:text-8xl font-extrabold text-white leading-[1.05] tracking-tight text-glow">
-              Redefining <br />
-              <span className="text-primary italic">the Journey.</span>
-            </h1>
-            
-            <p className="text-white/60 text-lg sm:text-xl max-w-lg leading-relaxed font-medium">
-              Experience the pinnacle of high-speed transit with ZigZagBus. Aerodynamic comfort, punctual schedules, and premium service at your fingertips.
-            </p>
+      {/* ── HERO ── */}
+      <section className="relative min-h-screen bg-midnight flex items-center">
+        {/* Background blobs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-primary/20 blur-[140px] rounded-full translate-x-1/3 -translate-y-1/4"></div>
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-violet-500/10 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/5 blur-[80px] rounded-full"></div>
+        </div>
 
-            <div className="w-full max-w-2xl">
-              <SearchForm />
-            </div>
-          </div>
+        {/* Grid overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)", backgroundSize: "60px 60px" }}></div>
 
-          <div className="relative hidden lg:block pr-8">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-transparent blur-[80px] -z-10 animate-pulse"></div>
-            <div className="relative w-full aspect-square blob-mask overflow-hidden group shadow-2xl shadow-primary/10">
-              <img 
-                src="https://images.unsplash.com/photo-1616388969587-8196f32388b4?auto=format&w=1200&q=80&fit=crop" 
-                alt="Modern luxury coach bus" 
-                className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[2000ms]" 
-              />
+        <div className="container mx-auto px-4 sm:px-8 relative z-10 pt-28 pb-16">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+            {/* Left */}
+            <div className="space-y-8">
+              <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-bold uppercase tracking-widest">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-ping inline-block"></span>
+                500+ Routes Across India
+              </div>
+
+              <h1 className="font-syne text-5xl sm:text-7xl font-extrabold text-white leading-[1.05] tracking-tight">
+                Travel Smarter,<br />
+                <span className="text-primary italic">Live Better.</span>
+              </h1>
+
+              <p className="text-white/55 text-lg max-w-lg leading-relaxed font-medium">
+                Book bus tickets in seconds, choose your seat, track your ride live, and travel in comfort — all from one platform.
+              </p>
+
+              {/* Trust pills */}
+              <div className="flex flex-wrap gap-3">
+                {["No Hidden Fees", "Instant E-Ticket", "Free Cancellation*"].map((t) => (
+                  <span key={t} className="flex items-center gap-1.5 text-xs font-bold text-white/60 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
+                    <i className="ti ti-check text-primary text-xs"></i> {t}
+                  </span>
+                ))}
+              </div>
+
+              {/* Search form */}
+              <div className="w-full">
+                <SearchForm />
+              </div>
             </div>
-            
-            <div className="absolute -bottom-4 -left-12 glass p-8 rounded-3xl shadow-3xl animate-bounce-slow">
-              <div className="flex items-center gap-5">
-                <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center text-primary shadow-inner">
-                  <i className="ti ti-shield-check text-3xl"></i>
+
+            {/* Right — visual */}
+            <div className="relative hidden lg:block">
+              {/* Main image */}
+              <div className="relative rounded-[40px] overflow-hidden shadow-2xl shadow-primary/20 aspect-[4/5]">
+                <img
+                  src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&w=900&q=80&fit=crop"
+                  alt="Modern luxury bus"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-transparent to-transparent"></div>
+
+                {/* Rating badge */}
+                <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-md px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2">
+                  <i className="ti ti-star-filled text-amber-400 text-lg"></i>
+                  <span className="font-syne font-extrabold text-midnight">4.9/5</span>
+                  <span className="text-slate-400 text-xs font-semibold">Rating</span>
+                </div>
+
+                {/* Live tracking badge */}
+                <div className="absolute bottom-6 left-6 right-6 bg-midnight/80 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center shrink-0">
+                      <i className="ti ti-map-pin text-primary text-lg"></i>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-white text-xs font-bold">Live Bus Tracking</p>
+                      <p className="text-white/40 text-[10px] font-semibold">Delhi → Agra · ETA 45 min</p>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-green-400 animate-ping inline-block"></span>
+                      <span className="text-green-400 text-[10px] font-bold">LIVE</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating card — users */}
+              <div className="absolute -left-12 top-1/3 bg-white rounded-3xl shadow-2xl p-5 flex items-center gap-4 border border-slate-100">
+                <div className="flex -space-x-3">
+                  {[41, 42, 43, 44].map((n) => (
+                    <img key={n} src={`https://i.pravatar.cc/60?u=${n}`} className="w-10 h-10 rounded-full border-2 border-white shadow" alt="" />
+                  ))}
                 </div>
                 <div>
-                  <p className="text-white text-base font-bold">100% Secure</p>
-                  <p className="text-white/40 text-xs font-semibold uppercase tracking-wider">Verified Bookings</p>
+                  <p className="font-syne font-extrabold text-midnight text-sm">1.2M+ Travelers</p>
+                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Trust ZigZagBus</p>
+                </div>
+              </div>
+
+              {/* Floating card — next departure */}
+              <div className="absolute -right-8 top-12 bg-white rounded-3xl shadow-2xl p-5 border border-slate-100 min-w-[180px]">
+                <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">Next Departure</p>
+                <p className="font-syne text-2xl font-extrabold text-midnight">06:00 AM</p>
+                <p className="text-primary text-xs font-bold mt-1">Delhi → Agra</p>
+                <div className="mt-2 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
+                  <span className="text-green-600 text-[10px] font-bold">12 seats left</span>
                 </div>
               </div>
             </div>
@@ -70,131 +154,227 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <div className="container mx-auto px-4 sm:px-8 relative -mt-16 sm:-mt-20 z-20">
-        <div className="bg-white rounded-[50px] shadow-3xl shadow-black/5 p-10 sm:p-14 flex flex-wrap lg:flex-nowrap justify-around items-center gap-12 border border-slate-100/50 backdrop-blur-sm">
-          {stats.map((s, idx) => (
-            <div key={idx} className="text-center px-10 lg:border-r border-slate-100 last:border-0 flex-1 min-w-[180px] group">
-              <h3 className="font-syne text-5xl font-bold text-midnight mb-2 group-hover:text-primary transition-colors duration-300">{s.value}</h3>
-              <p className="text-slate-400 text-[10px] font-extrabold uppercase tracking-[0.2em]">{s.label}</p>
+      {/* ── STATS BAR ── */}
+      <div className="container mx-auto px-4 sm:px-8 -mt-8 relative z-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {stats.map(({ value, label, icon }) => (
+            <div key={label} className="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-black/5 p-6 sm:p-8 text-center hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
+              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors duration-300">
+                <i className={`ti ${icon} text-primary text-xl group-hover:text-white transition-colors duration-300`}></i>
+              </div>
+              <p className="font-syne text-3xl sm:text-4xl font-extrabold text-midnight">{value}</p>
+              <p className="text-slate-400 text-[10px] font-extrabold uppercase tracking-widest mt-1">{label}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Features Section */}
-      <section className="py-32 sm:py-40 overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-8">
-          <div className="mb-20 sm:mb-24 flex flex-col items-center text-center lg:items-start lg:text-left">
-            <div className="w-20 h-1 bg-primary mb-8 rounded-full"></div>
-            <h2 className="font-syne text-5xl sm:text-7xl font-extrabold text-midnight mb-6 leading-tight">
-              The Premium <br className="hidden sm:block" /> <span className="text-primary italic">Standard.</span>
+      {/* ── HOW IT WORKS ── */}
+      <section className="py-28 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="inline-block text-[10px] font-extrabold text-primary uppercase tracking-widest bg-primary/10 px-4 py-2 rounded-full mb-6">Simple Process</span>
+            <h2 className="font-syne text-4xl sm:text-6xl font-extrabold text-midnight leading-tight">
+              Book in <span className="text-primary italic">4 Easy Steps</span>
             </h2>
-            <p className="text-slate-400 max-w-lg text-lg font-medium">Everything we do is designed to make your travel as seamless as the vehicles we operate.</p>
+            <p className="text-slate-400 mt-4 font-medium max-w-md mx-auto">From search to boarding — the entire process takes under 2 minutes.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
-            {features.map((f, idx) => (
-              <div 
-                key={idx} 
-                className={`${
-                  f.large ? 'lg:col-span-2' : ''
-                } ${
-                  f.dark ? 'bg-midnight text-white' : 'bg-slate-50 border border-slate-100'
-                } rounded-[50px] p-10 sm:p-16 relative overflow-hidden group hover:shadow-3xl transition-all duration-700 hover:-translate-y-1.5`}
-              >
-                <div className="relative z-10 h-full flex flex-col justify-between">
-                  <div className="max-w-md">
-                    <div className={`w-16 h-16 rounded-2xl ${f.dark ? 'bg-white/10' : 'bg-white shadow-xl shadow-black/5'} flex items-center justify-center text-primary mb-12 group-hover:rotate-6 transition-transform duration-500`}>
-                      <i className={`ti ${f.icon} text-4xl`}></i>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {steps.map((s, i) => (
+              <div key={s.step} className="relative group">
+                {/* Connector line */}
+                {i < steps.length - 1 && (
+                  <div className="hidden lg:block absolute top-10 left-[calc(100%-1rem)] w-8 border-t-2 border-dashed border-slate-200 z-10"></div>
+                )}
+                <div className="bg-slate-50 rounded-3xl p-7 border border-slate-100 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 h-full">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                      <i className={`ti ${s.icon} text-primary text-2xl group-hover:text-white transition-colors duration-300`}></i>
                     </div>
-                    <h4 className={`font-syne text-3xl sm:text-4xl font-bold mb-6 tracking-tight ${f.dark ? 'text-white' : 'text-midnight'}`}>{f.title}</h4>
-                    <p className={`leading-relaxed font-medium ${f.dark ? 'text-white/50' : 'text-slate-500'} ${f.large ? 'text-xl' : 'text-sm sm:text-base'}`}>{f.desc}</p>
+                    <span className="font-syne text-4xl font-extrabold text-slate-100">{s.step}</span>
                   </div>
-                  
-                  {f.large && !f.dark && (
-                    <div className="mt-12 sm:mt-16">
-                      <a href="#!" className="inline-flex items-center gap-3 text-primary text-lg font-extrabold group-hover:gap-6 transition-all duration-300">
-                        Explore Comfort <i className="ti ti-arrow-right text-xl"></i>
-                      </a>
-                    </div>
-                  )}
-                  
-                  {f.dark && (
-                    <div className="mt-12 sm:mt-16 flex items-center gap-8">
-                      <div className="flex -space-x-4">
-                        {[1, 2, 3, 4].map(n => (
-                          <img key={n} src={`https://i.pravatar.cc/100?u=${n+10}`} className="w-12 h-12 rounded-full border-4 border-midnight shadow-lg" alt="User" />
-                        ))}
-                      </div>
-                      <div className="space-y-0.5">
-                        <span className="text-white text-sm font-bold block">15,000+</span>
-                        <span className="text-white/30 text-[10px] font-bold uppercase tracking-wider">New members joined</span>
-                      </div>
-                    </div>
-                  )}
+                  <h3 className="font-syne font-extrabold text-midnight text-lg mb-2">{s.title}</h3>
+                  <p className="text-slate-400 text-sm font-medium leading-relaxed">{s.desc}</p>
                 </div>
-                {f.large && !f.dark && (
-                  <div className="absolute -right-32 -bottom-32 w-96 h-96 bg-primary/5 rounded-full blur-[100px] group-hover:bg-primary/10 transition-colors duration-700"></div>
-                )}
-                {f.dark && (
-                  <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-primary/20 to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-700"></div>
-                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Popular Destinations */}
-      <section className="py-32 sm:py-40 bg-slate-50 overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-20">
-            <div className="max-w-2xl">
-              <div className="inline-block px-4 py-1.5 rounded-lg bg-primary/10 text-primary text-[10px] font-extrabold uppercase tracking-widest mb-6">Trending Routes</div>
-              <h2 className="font-syne text-5xl sm:text-7xl font-extrabold text-midnight mb-6 tracking-tight leading-none">
-                Popular <span className="text-primary italic">Destinations.</span>
+      {/* ── FEATURES BENTO GRID ── */}
+      <section className="py-24 px-4 bg-midnight">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="inline-block text-[10px] font-extrabold text-primary uppercase tracking-widest bg-primary/10 px-4 py-2 rounded-full mb-6">Why ZigZagBus</span>
+            <h2 className="font-syne text-4xl sm:text-6xl font-extrabold text-white leading-tight">
+              Everything You <span className="text-primary italic">Need</span>
+            </h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {features.map(({ icon, title, desc, color }) => (
+              <div key={title} className="group bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-300">
+                <div className={`w-14 h-14 bg-gradient-to-br ${color} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <i className={`ti ${icon} text-white text-2xl`}></i>
+                </div>
+                <h3 className="font-syne font-extrabold text-white text-xl mb-3">{title}</h3>
+                <p className="text-white/40 text-sm leading-relaxed font-medium">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── POPULAR ROUTES ── */}
+      <section className="py-28 px-4 bg-slate-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
+            <div>
+              <span className="inline-block text-[10px] font-extrabold text-primary uppercase tracking-widest bg-primary/10 px-4 py-2 rounded-full mb-6">Top Routes</span>
+              <h2 className="font-syne text-4xl sm:text-5xl font-extrabold text-midnight leading-tight">
+                Popular <span className="text-primary italic">Destinations</span>
               </h2>
-              <p className="text-slate-400 text-lg font-medium">Discover top-rated cities across the country, curated for the modern traveler looking for both adventure and luxury.</p>
             </div>
-            <div className="flex gap-5">
-              <button className="w-16 h-16 rounded-full border-2 border-slate-200 flex items-center justify-center bg-white hover:bg-primary hover:border-primary hover:text-white hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 text-slate-400 active:scale-90">
-                <i className="ti ti-chevron-left text-2xl"></i>
-              </button>
-              <button className="w-16 h-16 rounded-full border-2 border-slate-200 flex items-center justify-center bg-white hover:bg-primary hover:border-primary hover:text-white hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 text-slate-400 active:scale-90">
-                <i className="ti ti-chevron-right text-2xl"></i>
-              </button>
-            </div>
+            <Link to="/search" className="shrink-0 inline-flex items-center gap-2 text-sm font-bold text-primary border border-primary/20 bg-primary/5 hover:bg-primary hover:text-white px-6 py-3 rounded-2xl transition-all duration-300">
+              View All Routes <i className="ti ti-arrow-right text-sm"></i>
+            </Link>
           </div>
 
-          <div className="flex gap-10 overflow-x-auto no-scrollbar pb-16 -mx-4 sm:-mx-8 px-4 sm:px-8 snap-x snap-mandatory">
-            {destinations.map((d) => (
-              <div key={d.id} className="min-w-[340px] sm:min-w-[440px] group snap-start">
-                <div className="bg-white rounded-[50px] overflow-hidden shadow-2xl shadow-black/5 border border-slate-100 h-full flex flex-col transition-all duration-700 hover:shadow-3xl hover:shadow-primary/10 hover:-translate-y-3 text-left">
-                  <div className="h-[340px] overflow-hidden relative">
-                    <img src={d.image} alt={d.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1500ms]" />
-                    <div className="absolute top-8 right-8 bg-white/95 backdrop-blur-xl px-5 py-2.5 rounded-2xl flex items-center gap-2.5 font-black text-sm text-midnight shadow-2xl">
-                      <i className="ti ti-star-filled text-yellow-400 text-base"></i> {d.rating}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {popularRoutes.map(({ from, to, duration, price, tag }) => (
+              <Link to="/search" key={`${from}-${to}`}
+                className="group bg-white rounded-3xl border border-slate-100 p-6 shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300"
+              >
+                {/* Tag + duration */}
+                <div className="flex items-center justify-between mb-5">
+                  <span className="text-[10px] font-extrabold text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest">{tag}</span>
+                  <span className="text-slate-400 text-xs font-semibold flex items-center gap-1">
+                    <i className="ti ti-clock text-xs"></i> {duration}
+                  </span>
+                </div>
+
+                {/* Route — stacked on mobile, row on sm+ */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-syne text-xl font-extrabold text-midnight truncate">{from}</p>
+                    <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-0.5">Origin</p>
+                  </div>
+
+                  {/* Arrow on mobile, dashed line on sm+ */}
+                  <div className="flex sm:flex-1 items-center gap-2">
+                    <div className="flex sm:hidden items-center gap-2 text-slate-300">
+                      <div className="w-2 h-2 rounded-full bg-primary shrink-0"></div>
+                      <i className="ti ti-bus text-primary text-base"></i>
+                      <i className="ti ti-arrow-right text-slate-300 text-sm"></i>
+                    </div>
+                    <div className="hidden sm:flex flex-1 items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-primary shrink-0"></div>
+                      <div className="flex-1 border-t-2 border-dashed border-slate-200 relative">
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                          <i className="ti ti-bus text-primary text-sm"></i>
+                        </div>
+                      </div>
+                      <div className="w-2 h-2 rounded-full bg-slate-300 shrink-0"></div>
                     </div>
                   </div>
-                  <div className="p-10 sm:p-12 flex-1 relative">
-                    <div className="absolute top-0 left-0 w-full h-14 -translate-y-[95%] bg-white dest-card-wave"></div>
-                    <div className="flex justify-between items-start mb-10">
-                      <div>
-                        <h5 className="font-syne text-3xl font-bold text-midnight tracking-tight">{d.name}</h5>
-                        <p className="text-slate-400 text-sm font-bold flex items-center gap-2 mt-3 uppercase tracking-widest">
-                          <i className="ti ti-clock-filled text-primary"></i> 8h Journey
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-[10px] font-black text-slate-300 uppercase block mb-1.5 tracking-[0.2em]">From</span>
-                        <span className="text-3xl font-black text-primary">₹899</span>
+
+                  <div className="flex-1 min-w-0 sm:text-right">
+                    <p className="font-syne text-xl font-extrabold text-midnight truncate">{to}</p>
+                    <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-0.5">Destination</p>
+                  </div>
+                </div>
+
+                {/* Price + arrow */}
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                  <div>
+                    <span className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Starting from</span>
+                    <p className="font-syne text-2xl font-extrabold text-primary">₹{price}</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-2xl bg-midnight group-hover:bg-primary flex items-center justify-center transition-colors duration-300 shadow-md">
+                    <i className="ti ti-arrow-right text-white text-sm"></i>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── DESTINATIONS ── */}
+      <section className="py-28 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="inline-block text-[10px] font-extrabold text-primary uppercase tracking-widest bg-primary/10 px-4 py-2 rounded-full mb-6">Discover India</span>
+            <h2 className="font-syne text-4xl sm:text-6xl font-extrabold text-midnight leading-tight">
+              Trending <span className="text-primary italic">Places</span>
+            </h2>
+            <p className="text-slate-400 mt-4 font-medium max-w-md mx-auto">Explore top-rated destinations across India at unbeatable prices.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {destinations.map((d, i) => (
+              <Link to="/search" key={d.id}
+                className={`group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2 ${i === 0 ? "md:row-span-2" : ""}`}
+              >
+                <div className={`relative overflow-hidden ${i === 0 ? "h-full min-h-[500px]" : "h-64"}`}>
+                  <img src={d.image} alt={d.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/20 to-transparent"></div>
+
+                  {/* Rating */}
+                  <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg">
+                    <i className="ti ti-star-filled text-amber-400 text-xs"></i>
+                    <span className="font-bold text-midnight text-xs">{d.rating}</span>
+                  </div>
+
+                  {/* Info */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">{d.location}</p>
+                    <h3 className="font-syne text-2xl font-extrabold text-white mb-3">{d.name}</h3>
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/60 text-xs font-semibold flex items-center gap-1.5">
+                        <i className="ti ti-bus text-primary text-xs"></i> Daily buses available
+                      </span>
+                      <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-primary/30">
+                        <i className="ti ti-arrow-right text-white text-sm"></i>
                       </div>
                     </div>
-                    <p className="text-slate-500 text-base font-medium leading-relaxed mb-12">Experience the magical blend of culture and comfort in {d.name}. Premium routes now open for booking.</p>
-                    <Link to="/search" className="block w-full py-5 text-center rounded-3xl bg-midnight text-white font-bold hover:bg-primary transition-all duration-500 shadow-xl shadow-black/10 hover:shadow-primary/30 text-lg uppercase tracking-widest">
-                      Book Seat
-                    </Link>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section className="py-28 px-4 bg-slate-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="inline-block text-[10px] font-extrabold text-primary uppercase tracking-widest bg-primary/10 px-4 py-2 rounded-full mb-6">Traveler Stories</span>
+            <h2 className="font-syne text-4xl sm:text-6xl font-extrabold text-midnight leading-tight">
+              Loved by <span className="text-primary italic">Millions</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((t, i) => (
+              <div key={i} className="bg-white rounded-3xl border border-slate-100 p-8 shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300">
+                {/* Stars */}
+                <div className="flex gap-1 mb-5">
+                  {Array.from({ length: t.rating }).map((_, j) => (
+                    <i key={j} className="ti ti-star-filled text-amber-400 text-sm"></i>
+                  ))}
+                </div>
+                <p className="text-slate-600 text-sm font-medium leading-relaxed mb-6">"{t.text}"</p>
+                <div className="flex items-center gap-3 pt-5 border-t border-slate-100">
+                  <img src={t.avatar} alt={t.name} className="w-11 h-11 rounded-2xl object-cover" />
+                  <div>
+                    <p className="font-bold text-midnight text-sm">{t.name}</p>
+                    <p className="text-slate-400 text-xs font-semibold flex items-center gap-1 mt-0.5">
+                      <i className="ti ti-route text-primary text-xs"></i> {t.location}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -203,30 +383,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="container mx-auto px-4 sm:px-8 pb-40">
-        <div className="relative rounded-[70px] bg-gradient-to-br from-midnight via-[#0a1128] to-primary p-12 sm:p-32 overflow-hidden text-center shadow-4xl shadow-primary/20">
-          <img src="https://cdn.jsdelivr.net/npm/game-icons-transparent@latest/svgs/lorc/concentric-crescents.svg" className="absolute -top-10 -left-10 w-64 h-64 opacity-10 blur-md animate-pulse text-white" alt="" />
-          <img src="https://cdn.jsdelivr.net/npm/game-icons-transparent@latest/svgs/lorc/waves.svg" className="absolute -bottom-20 -right-20 w-96 h-96 opacity-5 text-white rotate-12" alt="" />
-          
-          <div className="relative z-10 space-y-12">
-            <h2 className="font-syne text-5xl sm:text-8xl font-extrabold text-white leading-[1] tracking-tighter">
-              Ready for Your <br className="hidden sm:block" /> <span className="text-ice text-glow italic">Big Adventure?</span>
-            </h2>
-            <p className="text-white/60 max-w-3xl mx-auto text-lg sm:text-2xl leading-relaxed font-medium">
-              Join 1.2M+ travelers who trust ZigZagBus for their premium journeys. Aerodynamic comfort, real-time tracking, and unbeatable service.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
-              <Link to="/search" className="bg-white text-midnight font-bold px-12 sm:px-14 py-5 sm:py-6 rounded-[30px] hover:shadow-4xl hover:shadow-white/30 transition-all hover:scale-105 active:scale-95 text-lg sm:text-xl uppercase tracking-widest">
-                Book Now
-              </Link>
-              <button className="bg-white/5 text-white border-2 border-white/10 font-bold px-12 sm:px-14 py-5 sm:py-6 rounded-[30px] backdrop-blur-2xl hover:bg-white/15 transition-all hover:scale-105 active:scale-95 text-lg sm:text-xl uppercase tracking-widest">
-                Get App
-              </button>
+      {/* ── FINAL CTA ── */}
+      <section className="py-10 px-4 pb-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative bg-midnight rounded-[40px] overflow-hidden p-12 sm:p-20 text-center">
+            {/* Blobs */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/20 blur-[120px] rounded-full pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-violet-500/15 blur-[100px] rounded-full pointer-events-none"></div>
+            <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-primary/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+            {/* Grid overlay */}
+            <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
+
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-bold uppercase tracking-widest mb-8">
+                <i className="ti ti-rocket text-primary"></i> Start Your Journey Today
+              </div>
+              <h2 className="font-syne text-4xl sm:text-7xl font-extrabold text-white mb-6 leading-tight">
+                Your Next Adventure <br className="hidden sm:block" />
+                <span className="text-primary italic">Starts Here.</span>
+              </h2>
+              <p className="text-white/50 text-lg font-medium max-w-xl mx-auto mb-12 leading-relaxed">
+                Join 1.2 million travelers who trust ZigZagBus for safe, affordable, and comfortable journeys across India.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/search"
+                  className="inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary-dark text-white px-10 py-5 rounded-2xl font-bold shadow-xl shadow-primary/30 transition-all hover:-translate-y-0.5 text-sm uppercase tracking-widest"
+                >
+                  <i className="ti ti-search text-lg"></i> Search Buses Now
+                </Link>
+                <Link to="/register"
+                  className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white border border-white/10 px-10 py-5 rounded-2xl font-bold transition-all hover:-translate-y-0.5 text-sm uppercase tracking-widest"
+                >
+                  <i className="ti ti-user-plus text-lg"></i> Create Free Account
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

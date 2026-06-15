@@ -26,10 +26,14 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isHome = location.pathname === "/";
+
   return (
     <nav 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-midnight/90 backdrop-blur-md py-3 shadow-lg" : "bg-transparent py-5"
+        scrolled || !isHome
+          ? "bg-white py-3 shadow-sm border-b border-slate-100"
+          : "bg-transparent py-5"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-8 flex items-center justify-between">
@@ -37,7 +41,9 @@ export default function Navbar() {
           <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white text-xl shadow-lg shadow-primary/20 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
             <i className="ti ti-bus"></i>
           </div>
-          <span className="font-syne text-2xl font-extrabold text-white tracking-tight">
+          <span className={`font-syne text-2xl font-extrabold tracking-tight ${
+            scrolled || !isHome ? "text-midnight" : "text-white"
+          }`}>
             ZigZagBus
           </span>
         </Link>
@@ -49,7 +55,7 @@ export default function Navbar() {
               <Link
                 to={l.to}
                 className={`text-sm font-semibold transition-all hover:text-primary relative group ${
-                  isActive(l.to) ? "text-primary" : "text-white/80"
+                  isActive(l.to) ? "text-primary" : scrolled || !isHome ? "text-slate-600" : "text-white/80"
                 }`}
               >
                 {l.label}
@@ -62,18 +68,30 @@ export default function Navbar() {
         {/* Desktop auth */}
         <div className="hidden md:flex items-center gap-4">
           {user ? (
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-white/50">Hi, <span className="text-white font-medium">{user.name}</span></span>
+            <div className="flex items-center gap-3">
+              <span className={`text-sm ${scrolled || !isHome ? "text-slate-400" : "text-white/50"}`}>Hi, <span className={`font-medium ${scrolled || !isHome ? "text-midnight" : "text-white"}`}>{user.name}</span></span>
+              <Link
+                to="http://localhost:5173/dashboard"
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95 ${
+                  scrolled || !isHome ? "bg-primary/10 text-primary hover:bg-primary hover:text-white" : "bg-white/10 text-white hover:bg-white/20"
+                }`}
+              >
+                <i className="ti ti-layout-dashboard text-sm"></i> Dashboard
+              </Link>
               <button
                 onClick={logout}
-                className="px-5 py-2 rounded-xl border border-white/10 text-white text-sm font-bold hover:bg-white/5 transition-all active:scale-95"
+                className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all active:scale-95 ${
+                  scrolled || !isHome ? "border-slate-200 text-slate-600 hover:bg-slate-50" : "border-white/10 text-white hover:bg-white/5"
+                }`}
               >
                 Logout
               </button>
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <Link to="/login" className="px-6 py-2.5 text-white/80 text-sm font-bold hover:text-white transition-colors">
+              <Link to="/login" className={`px-6 py-2.5 text-sm font-bold transition-colors ${
+                scrolled || !isHome ? "text-slate-600 hover:text-midnight" : "text-white/80 hover:text-white"
+              }`}>
                 Login
               </Link>
               <Link to="/register" className="px-6 py-2.5 bg-primary hover:bg-primary-dark text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95">
@@ -85,7 +103,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-white p-2"
+          className={`md:hidden p-2 ${scrolled || !isHome ? "text-midnight" : "text-white"}`}
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -120,12 +138,21 @@ export default function Navbar() {
 
           <div className="pt-8 border-t border-white/10 space-y-4">
             {user ? (
-              <button
-                onClick={() => { logout(); setOpen(false); }}
-                className="w-full py-5 rounded-2xl border border-red-500/50 text-red-500 font-bold"
-              >
-                Logout
-              </button>
+              <div className="space-y-3">
+                <Link
+                  to="http://localhost:5173/dashboard"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-primary text-white font-bold shadow-lg shadow-primary/20"
+                >
+                  <i className="ti ti-layout-dashboard"></i> Dashboard
+                </Link>
+                <button
+                  onClick={() => { logout(); setOpen(false); }}
+                  className="w-full py-4 rounded-2xl border border-red-500/50 text-red-500 font-bold"
+                >
+                  Logout
+                </button>
+              </div>
             ) : (
               <>
                 <Link to="/login" onClick={() => setOpen(false)} className="block w-full py-5 text-center text-white font-bold border border-white/10 rounded-2xl">

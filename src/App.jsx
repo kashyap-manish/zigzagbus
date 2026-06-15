@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { BookingProvider } from "./context/BookingContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -13,32 +13,48 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Offers from "./pages/Offers";
 import LiveTracking from "./pages/LiveTracking";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import FAQ from "./pages/FAQ";
 import BackToTop from "./components/BackToTop";
+
+const AUTH_ROUTES = ["/login", "/register"];
+
+function Layout() {
+  const { pathname } = useLocation();
+  const isAuth = AUTH_ROUTES.includes(pathname);
+  return (
+    <div className="flex flex-col min-h-screen">
+      {!isAuth && <Navbar />}
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route path="/seats" element={<SeatSelection />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/bookings" element={<MyBookings />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/offers" element={<Offers />} />
+          <Route path="/track" element={<LiveTracking />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/faq" element={<FAQ />} />
+        </Routes>
+      </main>
+      {!isAuth && <BackToTop />}
+      {!isAuth && <Footer />}
+    </div>
+  );
+}
 
 export default function App() {
   return (
     <BrowserRouter>
       <BookingProvider>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/search" element={<SearchResults />} />
-              <Route path="/seats" element={<SeatSelection />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/bookings" element={<MyBookings />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/offers" element={<Offers />} />
-              <Route path="/track" element={<LiveTracking />} />
-            </Routes>
-          </main>
-          <BackToTop />
-          <Footer />
-        </div>
+        <Layout />
       </BookingProvider>
     </BrowserRouter>
   );

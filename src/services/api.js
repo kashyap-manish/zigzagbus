@@ -18,10 +18,10 @@ async function request(path, options = {}) {
 
 // Auth
 export const loginUser = (email, password) =>
-  request("/auth/login", { method: "POST", body: JSON.stringify({ username: email, password, stype: "operator" }) });
+  request("/auth/login/customer", { method: "POST", body: JSON.stringify({ email, password }) });
 
 export const registerUser = (name, email, password) =>
-  request("/auth/register", { method: "POST", body: JSON.stringify({ bus_name: name, email, password }) });
+  request("/auth/register/customer", { method: "POST", body: JSON.stringify({ name, email, password }) });
 
 // Buses
 export const searchBuses = (from, to) => {
